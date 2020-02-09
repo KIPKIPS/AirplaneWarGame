@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Hero : MonoBehaviour {
-    public bool animation;
-    public int frameCountPerSecond = 10;
+    public bool canPlayAnim;//是否播放动画
+    public int fps = 10;//fps
     public float timer=0;
 
     public Sprite[] sprites;
@@ -13,18 +13,19 @@ public class Hero : MonoBehaviour {
     public SpriteRenderer sr;
     // Start is called before the first frame update
     void Start() {
-        animation = true;
+        canPlayAnim = true;
         sr = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (animation) {
+        if (canPlayAnim) {
             timer += Time.deltaTime;
-            int frameIndex = (int)(timer / (1.0f / frameCountPerSecond));
-            frameIndex %= 2;
+            int frameIndex = (int)(timer / (1.0f / fps)) %2;//1/fps=一帧所需时间 (timer/一帧所需时间)再取整得到当前帧索引
+            //frameIndex %= 2;
             sr.sprite = sprites[frameIndex];
         }
     }
+
 }

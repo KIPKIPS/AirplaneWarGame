@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BackgroundTransform : MonoBehaviour {
-    public float moveSpeed;
+    public static float moveSpeed;
     // Start is called before the first frame update
     void Start() {
-        moveSpeed = 8;
+        moveSpeed = 2;
     }
 
     // Update is called once per frame

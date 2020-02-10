@@ -544,8 +544,8 @@ MonoBehaviour:
   award_0: {fileID: 5472568746264891763, guid: 27c2d2efae5a34a4aa0a53f7c38c00c7, type: 3}
   award_1: {fileID: 3926746821796299250, guid: aabbed1856915b541a3177eac366468b, type: 3}
   rateOfCreateEnemy0: 0.5
-  rateOfCreateEnemy1: 0
-  rateOfCreateEnemy2: 0
+  rateOfCreateEnemy1: 5
+  rateOfCreateEnemy2: 8
   rateOfCreateAward_0: 0
   rateOfCreateAward_1: 0
 --- !u!4 &1166626571
@@ -637,6 +637,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1957d429b7b862645a52c7b774d648e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveSpeed: 7
+  Dup: 0
+  Dright: 0
+  keyUp: w
+  keyDown: s
+  keyLeft: a
+  keyRight: d
   canPlayAnim: 0
   fps: 10
   timer: 0
@@ -701,7 +708,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1830697563}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -3.5, z: 0}
+  m_LocalPosition: {x: 0, y: -3.55, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 168502562}

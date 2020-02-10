@@ -21,11 +21,14 @@ public class Spawn : MonoBehaviour {
         rateOfCreateEnemy1 = 5f;
         rateOfCreateEnemy2 = 8f;
 
-        rateOfCreateAward_0 = 0.5f;
-        rateOfCreateAward_1 = 0.5f;
+        rateOfCreateAward_0 = 7f;
+        rateOfCreateAward_1 = 10f;
         InvokeRepeating("CreateEnemy0",1,rateOfCreateEnemy0);
         InvokeRepeating("CreateEnemy1",3, rateOfCreateEnemy1);
         InvokeRepeating("CreateEnemy2", 6, rateOfCreateEnemy2);
+
+        InvokeRepeating("CreateAward0", 7, rateOfCreateAward_0);
+        InvokeRepeating("CreateAward1", 10, rateOfCreateAward_1);
     }
 
     // Update is called once per frame
@@ -44,5 +47,14 @@ public class Spawn : MonoBehaviour {
     public void CreateEnemy2() {
         float x = Random.Range(-1.5f, 1.5f);
         Instantiate(enemy2, new Vector3(x, transform.position.y, transform.position.z), Quaternion.identity);
+    }
+
+    public void CreateAward0() {
+        float x = Random.Range(-1.5f, 1.5f);
+        Instantiate(award_0, new Vector3(x, transform.position.y, transform.position.z), Quaternion.identity);
+    }
+    public void CreateAward1() {
+        float x = Random.Range(-1.5f, 1.5f);
+        Instantiate(award_1, new Vector3(x, transform.position.y, transform.position.z), Quaternion.identity);
     }
 }

@@ -20,4 +20,11 @@ public class Award : MonoBehaviour {
             Destroy(gameObject);
         }
     }
+
+    void OnTriggerEnter(Collider other) {
+        if (other.tag=="Player") {
+            other.SendMessage("GetAward");
+            Destroy(this.gameObject);
+        }
+    }
 }

@@ -9,7 +9,6 @@ public enum EnemyType {
 }
 public class Enemy : MonoBehaviour {
     public int hp;
-
     public float speed;
 
     public float destroyPosY;
@@ -24,6 +23,7 @@ public class Enemy : MonoBehaviour {
     public int fps;
 
     public SpriteRenderer SR;
+
     // Start is called before the first frame update
     void Start() {
         SR = GetComponent<SpriteRenderer>();
@@ -40,14 +40,20 @@ public class Enemy : MonoBehaviour {
         //爆炸动画
         if (isDead) {
             //加分
-            if (type==EnemyType.enemy0) {
-                
-            }
             timer += Time.deltaTime;
             int frame = (int)(timer / (1.0f / fps));
             SR.sprite = sprites[frame];
             //最后一帧播放完成
             if (frame==sprites.Length-1) {
+                if (type == EnemyType.enemy0) {
+                    GameManager._instance.score += 1;
+                }
+                if (type == EnemyType.enemy1) {
+                    GameManager._instance.score += 2;
+                }
+                if (type == EnemyType.enemy2) {
+                    GameManager._instance.score += 5;
+                }
                 Destroy(this.gameObject);
             }
         }

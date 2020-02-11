@@ -57,4 +57,8 @@ public class Hero : MonoBehaviour {
 
     }
 
+    void GetAward() {
+
+    }
+
 }

@@ -18,4 +18,12 @@ public class Bullet : MonoBehaviour {
             Destroy(this.gameObject);
         }
     }
+
+    void OnTriggerEnter(Collider other) {
+        if (other.tag=="Enemy") {
+            other.gameObject.SendMessage("BeHit");
+            Destroy(this.gameObject);//销毁子弹
+            Debug.Log("pz");
+        }
+    }
 }

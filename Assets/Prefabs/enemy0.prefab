@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 7876781705491960276}
   - component: {fileID: 7876781705491960279}
   - component: {fileID: 7876781705491960278}
+  - component: {fileID: 653302754}
   m_Layer: 0
   m_Name: enemy0
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -97,3 +98,16 @@ MonoBehaviour:
   speed: 3
   destroyPosY: -4.6
   score: 1
+--- !u!65 &653302754
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7876781705491960273}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.45, y: 0.32, z: 2}
+  m_Center: {x: 0, y: 0.03, z: 0}

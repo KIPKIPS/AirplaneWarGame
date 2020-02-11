@@ -12,7 +12,6 @@ public class Enemy : MonoBehaviour {
     public int score;
     // Start is called before the first frame update
     void Start() {
-        hp = 1;
     }
 
     // Update is called once per frame
@@ -22,6 +21,13 @@ public class Enemy : MonoBehaviour {
         transform.Translate(Vector3.down*speed*Time.deltaTime);
         //销毁
         if (transform.position.y<destroyPosY) {
+            Destroy(this.gameObject);
+        }
+    }
+
+    public void BeHit() {
+        hp--;
+        if (hp==0) {
             Destroy(this.gameObject);
         }
     }

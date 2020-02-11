@@ -97,7 +97,19 @@ MonoBehaviour:
   hp: 20
   speed: 1
   destroyPosY: -5.6
+  type: 2
   score: 5
+  isDead: 0
+  sprites:
+  - {fileID: 21300000, guid: 0d12a13974725b148b92133f32ca3b9b, type: 3}
+  - {fileID: 21300000, guid: 6961dfade279f99498e5a86d89785c97, type: 3}
+  - {fileID: 21300000, guid: 9b4e6c76d89edf244bbf01a4c08b2405, type: 3}
+  - {fileID: 21300000, guid: be61fe86ec7b35e4fb6eb2ea3250cd65, type: 3}
+  - {fileID: 21300000, guid: 1df4f4bd89f07a2448674aaac4473645, type: 3}
+  - {fileID: 21300000, guid: 0b7c1998bd82e5240bd6c1ec845c7da5, type: 3}
+  timer: 0
+  fps: 10
+  SR: {fileID: 0}
 --- !u!65 &400090775
 BoxCollider:
   m_ObjectHideFlags: 0

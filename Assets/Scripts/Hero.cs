@@ -38,7 +38,7 @@ public class Hero : MonoBehaviour {
     public Gun gunLeft;
     public Gun gunRight;
 
-    public int hp = 100;
+    public int hp;
 
     void Awake() {
         gunTop = GameObject.Find("Gun_top").GetComponent<Gun>();
@@ -47,6 +47,7 @@ public class Hero : MonoBehaviour {
     }
     // Start is called before the first frame update
     void Start() {
+        hp = 20;
         gunTop.OpenFire();
         canPlayAnim = true;
         sr = GetComponent<SpriteRenderer>();
@@ -67,9 +68,15 @@ public class Hero : MonoBehaviour {
         if (hp <= 0) {
             canPlayAnim = false;
             timerExplode += Time.deltaTime;
-            int frameIndexExplode = (int)(timerExplode / (1.0f / fps)) % 4;//1/fps=一帧所需时间 (timer/一帧所需时间)再取整得到当前帧索引
-            //frameIndex %= 2;
-            sr.sprite = sprites[frameIndexExplode];
+            int frameIndexExplode = (int)(timerExplode / (1.0f / fps)) % 4;
+            sr.sprite = spritesExplode[frameIndexExplode];
+            //最后一帧完成则Explode
+            if (frameIndexExplode==spritesExplode.Length-1) {
+                //Time.timeScale = 0;
+                DestroyAll();
+                Destroy(this.gameObject);
+                Time.timeScale = 0;
+            }
         }
         targetDup = (Input.GetKey(keyUp) ? 1.0f : 0) - (Input.GetKey(keyDown) ? 1.0f : 0);
         targetDright = (Input.GetKey(keyRight) ? 1.0f : 0) - (Input.GetKey(keyLeft) ? 1.0f : 0);
@@ -94,7 +101,6 @@ public class Hero : MonoBehaviour {
                 ToNormalWeapon();
             }
         }
-        
     }
     //切换武器
     //super
@@ -115,22 +121,30 @@ public class Hero : MonoBehaviour {
         //获取补给
         if (other.tag == "Award") {
             //Debug.Log("award");
-            if (other.transform.GetComponent<Award>().type == 0) {
+            if (other.transform.GetComponent<Award>().type == 0) 
                 superWeaponTime = restSuperWeaponTime;
-            }
             else {
                 //other.gameObject.SendMessage("GetAward1");
                 GameObject[] gos = GameObject.FindGameObjectsWithTag("Enemy");
-                foreach (var go in gos) {
+                foreach (var go in gos) 
                     go.GetComponent<Enemy>().isDead = true;
-                }
             }
             Destroy(other.gameObject);
         }
-        //碰撞敌人
-        if (other.tag=="Enemy") {
-            Debug.Log("pzEnemy");
-            hp--;
+    }
+
+    void DestroyAll() {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (var VARIABLE in enemies) {
+            Destroy(VARIABLE.gameObject);
+        }
+        GameObject[] awards = GameObject.FindGameObjectsWithTag("Award");
+        foreach (var VARIABLE in awards) {
+            Destroy(VARIABLE.gameObject);
+        }
+        GameObject[] bullets = GameObject.FindGameObjectsWithTag("Bullet");
+        foreach (var VARIABLE in bullets) {
+            Destroy(VARIABLE.gameObject);
         }
     }
 }

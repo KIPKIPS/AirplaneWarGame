@@ -7,6 +7,7 @@ TagManager:
   - Award
   - Bullet
   - Enemy
+  - PlayerSenior
   layers:
   - Default
   - TransparentFX

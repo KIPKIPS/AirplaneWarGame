@@ -2,16 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+public enum GameState {
+    Running, Pause
+}
 public class GameManager : MonoBehaviour {
     public int score;
-
     public static GameManager _instance;
-
     public Text text;
+
+    
+    public GameState gameState;
     // Start is called before the first frame update
     void Awake() {
         _instance = this;
+        gameState = GameState.Running;
     }
     void Start() {
         score = 0;
@@ -21,5 +25,27 @@ public class GameManager : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         text.text = "Your Score: " + score;
+    }
+
+    public void ChangeState() {
+        if (gameState==GameState.Running) {
+            Debug.Log("0");
+            Pause();
+            //_instance.gameState = GameState.Pause;
+        }
+        else if (gameState ==GameState.Pause) {
+            Debug.Log("1");
+            Continue();
+        }
+    }
+    //暂停
+    public void Pause() {
+        Time.timeScale = 0;
+        gameState = GameState.Pause;
+    }
+    //继续游戏
+    public void Continue() {
+        Time.timeScale = 1;
+        gameState = GameState.Running;
     }
 }

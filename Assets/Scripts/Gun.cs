@@ -19,7 +19,7 @@ public class Gun : MonoBehaviour {
     public void Fire() {
         //实例化一个子弹,位置为当前游戏物体位置,旋转角度为默认Quaternion.identity
         Instantiate(bullet,transform.position,Quaternion.identity);
-        Debug.Log("bullet 0");
+        //Debug.Log("bullet 0");
     }
 
     public void OpenFire() {

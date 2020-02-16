@@ -39,11 +39,11 @@ public class Enemy : MonoBehaviour {
         }
         //爆炸动画
         if (isDead) {
-            //加分
+            //最后一帧播放完成
             timer += Time.deltaTime;
             int frame = (int)(timer / (1.0f / fps));
             SR.sprite = sprites[frame];
-            //最后一帧播放完成
+            //加分
             if (frame==sprites.Length-1) {
                 if (type == EnemyType.enemy0) {
                     GameManager._instance.score += 1;
@@ -63,5 +63,12 @@ public class Enemy : MonoBehaviour {
     public void BeHit() {
         hp--;
         isDead = hp <= 0;
+    }
+
+    void OnTriggerEnter(Collider other) {
+        if (other.tag=="Player") {
+            Debug.Log("pzPlayer");
+            isDead = true;
+        }
     }
 }

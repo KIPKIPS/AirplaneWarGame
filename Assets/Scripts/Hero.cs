@@ -21,11 +21,14 @@ public class Hero : MonoBehaviour {
 
     public bool canPlayAnim;//是否播放动画
     public int fps = 10;//fps
-    public float timer = 0;
 
+    public float timer = 0;
+    public float timerExplode = 0;
     public Sprite[] sprites;
+    public Sprite[] spritesExplode;
 
     public SpriteRenderer sr;
+
     public float superWeaponTime = 15;
     private float restSuperWeaponTime;
 
@@ -34,6 +37,8 @@ public class Hero : MonoBehaviour {
     public Gun gunTop;
     public Gun gunLeft;
     public Gun gunRight;
+
+    public int hp = 100;
 
     void Awake() {
         gunTop = GameObject.Find("Gun_top").GetComponent<Gun>();
@@ -59,6 +64,13 @@ public class Hero : MonoBehaviour {
             //frameIndex %= 2;
             sr.sprite = sprites[frameIndex];
         }
+        if (hp <= 0) {
+            canPlayAnim = false;
+            timerExplode += Time.deltaTime;
+            int frameIndexExplode = (int)(timerExplode / (1.0f / fps)) % 4;//1/fps=一帧所需时间 (timer/一帧所需时间)再取整得到当前帧索引
+            //frameIndex %= 2;
+            sr.sprite = sprites[frameIndexExplode];
+        }
         targetDup = (Input.GetKey(keyUp) ? 1.0f : 0) - (Input.GetKey(keyDown) ? 1.0f : 0);
         targetDright = (Input.GetKey(keyRight) ? 1.0f : 0) - (Input.GetKey(keyLeft) ? 1.0f : 0);
         //对输入值进行插值计算
@@ -82,6 +94,7 @@ public class Hero : MonoBehaviour {
                 ToNormalWeapon();
             }
         }
+        
     }
     //切换武器
     //super
@@ -99,8 +112,9 @@ public class Hero : MonoBehaviour {
         gunLeft.StopFire();
     }
     void OnTriggerEnter(Collider other) {
+        //获取补给
         if (other.tag == "Award") {
-            Debug.Log("award");
+            //Debug.Log("award");
             if (other.transform.GetComponent<Award>().type == 0) {
                 superWeaponTime = restSuperWeaponTime;
             }
@@ -112,6 +126,11 @@ public class Hero : MonoBehaviour {
                 }
             }
             Destroy(other.gameObject);
+        }
+        //碰撞敌人
+        if (other.tag=="Enemy") {
+            Debug.Log("pzEnemy");
+            hp--;
         }
     }
 }

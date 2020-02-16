@@ -21,7 +21,6 @@ public class Enemy : MonoBehaviour {
     public float timer;
 
     public int fps;
-
     public SpriteRenderer SR;
 
     // Start is called before the first frame update
@@ -66,8 +65,8 @@ public class Enemy : MonoBehaviour {
     }
 
     void OnTriggerEnter(Collider other) {
-        if (other.tag=="Player") {
-            Debug.Log("pzPlayer");
+        if (other.tag=="PlayerSenior") {
+            Debug.Log("explode");
             isDead = true;
         }
     }

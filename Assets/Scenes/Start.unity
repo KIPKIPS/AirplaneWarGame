@@ -622,11 +622,11 @@ MonoBehaviour:
   enemy2: {fileID: 1170744759795750722, guid: 0a24d773e421d9a4688c456c8c5ae52d, type: 3}
   award_0: {fileID: 5472568746264891763, guid: 27c2d2efae5a34a4aa0a53f7c38c00c7, type: 3}
   award_1: {fileID: 3926746821796299250, guid: aabbed1856915b541a3177eac366468b, type: 3}
-  rateOfCreateEnemy0: 0.5
-  rateOfCreateEnemy1: 5
-  rateOfCreateEnemy2: 8
-  rateOfCreateAward_0: 0
-  rateOfCreateAward_1: 0
+  rateOfCreateEnemy0: 0.3
+  rateOfCreateEnemy1: 3
+  rateOfCreateEnemy2: 5
+  rateOfCreateAward_0: 7
+  rateOfCreateAward_1: 10
 --- !u!4 &1166626571
 Transform:
   m_ObjectHideFlags: 0

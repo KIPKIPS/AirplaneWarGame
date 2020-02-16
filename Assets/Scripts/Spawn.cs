@@ -17,12 +17,6 @@ public class Spawn : MonoBehaviour {
     public float rateOfCreateAward_1;
     // Start is called before the first frame update
     void Start() {
-        rateOfCreateEnemy0 = 0.5f;
-        rateOfCreateEnemy1 = 5f;
-        rateOfCreateEnemy2 = 8f;
-
-        rateOfCreateAward_0 = 7f;
-        rateOfCreateAward_1 = 10f;
         InvokeRepeating("CreateEnemy0",1,rateOfCreateEnemy0);
         InvokeRepeating("CreateEnemy1",3, rateOfCreateEnemy1);
         InvokeRepeating("CreateEnemy2", 6, rateOfCreateEnemy2);

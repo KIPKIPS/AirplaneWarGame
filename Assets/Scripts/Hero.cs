@@ -106,6 +106,10 @@ public class Hero : MonoBehaviour {
             }
             else {
                 //other.gameObject.SendMessage("GetAward1");
+                GameObject[] gos = GameObject.FindGameObjectsWithTag("Enemy");
+                foreach (var go in gos) {
+                    go.GetComponent<Enemy>().isDead = true;
+                }
             }
             Destroy(other.gameObject);
         }

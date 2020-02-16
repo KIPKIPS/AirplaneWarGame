@@ -21,24 +21,41 @@ public class Hero : MonoBehaviour {
 
     public bool canPlayAnim;//是否播放动画
     public int fps = 10;//fps
-    public float timer=0;
+    public float timer = 0;
 
     public Sprite[] sprites;
 
     public SpriteRenderer sr;
+    public float superWeaponTime = 15;
+    private float restSuperWeaponTime;
+
+    public int weaponCount=1;//武器数量
+
+    public Gun gunTop;
+    public Gun gunLeft;
+    public Gun gunRight;
+
+    void Awake() {
+        gunTop = GameObject.Find("Gun_top").GetComponent<Gun>();
+        gunLeft = GameObject.Find("Gun_left").GetComponent<Gun>();
+        gunRight = GameObject.Find("Gun_right").GetComponent<Gun>();
+    }
     // Start is called before the first frame update
     void Start() {
+        gunTop.OpenFire();
         canPlayAnim = true;
         sr = GetComponent<SpriteRenderer>();
-        moveSpeed = 7;
+        //初始状态下武器为1
+        restSuperWeaponTime = superWeaponTime;
+        superWeaponTime = 0;
+        
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update() {
         if (canPlayAnim) {
             timer += Time.deltaTime;
-            int frameIndex = (int)(timer / (1.0f / fps)) %2;//1/fps=一帧所需时间 (timer/一帧所需时间)再取整得到当前帧索引
+            int frameIndex = (int)(timer / (1.0f / fps)) % 2;//1/fps=一帧所需时间 (timer/一帧所需时间)再取整得到当前帧索引
             //frameIndex %= 2;
             sr.sprite = sprites[frameIndex];
         }
@@ -48,17 +65,49 @@ public class Hero : MonoBehaviour {
         Dup = Mathf.SmoothDamp(Dup, targetDup, ref velocityDup, 0.1f);//x AD
         Dright = Mathf.SmoothDamp(Dright, targetDright, ref velocityDright, 0.1f);//y WS
 
-        transform.Translate(new Vector3(Dright,Dup,transform.position.z)*moveSpeed*Time.deltaTime);
+        transform.Translate(new Vector3(Dright, Dup, transform.position.z) * moveSpeed * Time.deltaTime);
         //防止越界
-        float x=Mathf.Clamp(transform.position.x, -1.8f, 1.8f);
+        float x = Mathf.Clamp(transform.position.x, -1.8f, 1.8f);
         float y = Mathf.Clamp(transform.position.y, -3.66f, 3.66f);
 
-        transform.position = new Vector3(x, y,transform.position.z);
-
+        transform.position = new Vector3(x, y, transform.position.z);
+        superWeaponTime -= Time.deltaTime;
+        if (superWeaponTime>0) {
+            if (weaponCount==1) {
+                ToSuperWeapon();
+            }
+        }
+        else {
+            if (weaponCount == 2) {
+                ToNormalWeapon();
+            }
+        }
     }
-
-    void GetAward() {
-
+    //切换武器
+    //super
+    void ToSuperWeapon() {
+        weaponCount = 2;
+        gunTop.StopFire();
+        gunRight.OpenFire();
+        gunLeft.OpenFire();
     }
-
+    //normal
+    void ToNormalWeapon() {
+        weaponCount = 1;
+        gunTop.OpenFire();
+        gunRight.StopFire();
+        gunLeft.StopFire();
+    }
+    void OnTriggerEnter(Collider other) {
+        if (other.tag == "Award") {
+            Debug.Log("award");
+            if (other.transform.GetComponent<Award>().type == 0) {
+                superWeaponTime = restSuperWeaponTime;
+            }
+            else {
+                //other.gameObject.SendMessage("GetAward1");
+            }
+            Destroy(other.gameObject);
+        }
+    }
 }

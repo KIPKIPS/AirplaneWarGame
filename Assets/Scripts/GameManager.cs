@@ -28,12 +28,12 @@ public class GameManager : MonoBehaviour {
     }
 
     public void ChangeState() {
-        if (gameState==GameState.Running) {
+        if (_instance.gameState == GameState.Running) {
             Debug.Log("0");
             Pause();
             //_instance.gameState = GameState.Pause;
         }
-        else if (gameState ==GameState.Pause) {
+        else if (_instance.gameState == GameState.Pause) {
             Debug.Log("1");
             Continue();
         }
@@ -41,11 +41,11 @@ public class GameManager : MonoBehaviour {
     //暂停
     public void Pause() {
         Time.timeScale = 0;
-        gameState = GameState.Pause;
+        _instance.gameState = GameState.Pause;
     }
     //继续游戏
     public void Continue() {
         Time.timeScale = 1;
-        gameState = GameState.Running;
+        _instance.gameState = GameState.Running;
     }
 }

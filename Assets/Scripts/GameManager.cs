@@ -8,10 +8,10 @@ public enum GameState {
 public class GameManager : MonoBehaviour {
     public int score;
     public static GameManager _instance;
-    public Text text;
+    public Text scoreText;
 
     public GameState gameState;
-
+    
     // Start is called before the first frame update
     void Awake() {
         _instance = this;
@@ -19,12 +19,13 @@ public class GameManager : MonoBehaviour {
     }
     void Start() {
         score = 0;
-        text = GameObject.Find("Score").GetComponent<Text>();
+        scoreText = GameObject.Find("Score").GetComponent<Text>();
+        
     }
 
     // Update is called once per frame
     void Update() {
-        text.text = "Your Score: " + score;
+        scoreText.text = "Your Score : " + score;
     }
 
     public void ChangeState() {

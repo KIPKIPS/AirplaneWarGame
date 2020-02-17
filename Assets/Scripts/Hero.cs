@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Hero : MonoBehaviour {
     public float moveSpeed;
@@ -39,27 +40,35 @@ public class Hero : MonoBehaviour {
     public Gun gunRight;
 
     public int hp;
+    public int boomRestNum;
+    public Text boomText;
+
     public AudioSource[] audioList;
     void Awake() {
         gunTop = GameObject.Find("Gun_top").GetComponent<Gun>();
         gunLeft = GameObject.Find("Gun_left").GetComponent<Gun>();
         gunRight = GameObject.Find("Gun_right").GetComponent<Gun>();
         audioList = GetComponents<AudioSource>();
+        boomText = GameObject.Find("RestNum").GetComponent<Text>();
     }
     // Start is called before the first frame update
     void Start() {
-        hp = 20;
         gunTop.OpenFire();
         canPlayAnim = true;
         sr = GetComponent<SpriteRenderer>();
         //初始状态下武器为1
         restSuperWeaponTime = superWeaponTime;
         superWeaponTime = 0;
-
+        boomRestNum = 0;
+        boomText.text = "X 0";
     }
 
     // Update is called once per frame
     void Update() {
+        //空格Down下 BoomBoomBoom!!!
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            Boom();
+        }
         if (canPlayAnim) {
             timer += Time.deltaTime;
             int frameIndex = (int)(timer / (1.0f / fps)) % 2;//1/fps=一帧所需时间 (timer/一帧所需时间)再取整得到当前帧索引
@@ -129,11 +138,8 @@ public class Hero : MonoBehaviour {
             //boom
             if (other.transform.GetComponent<Award>().type == 1) {
                 //other.gameObject.SendMessage("GetAward1");
-                GameObject[] gos = GameObject.FindGameObjectsWithTag("Enemy");
-                foreach (GameObject go in gos) {
-                    //Debug.Log(go.name);
-                    go.GetComponent<Enemy>().isDead = true;
-                }
+                boomRestNum++;
+                boomText.text = "X " + boomRestNum;
             }
             Destroy(other.gameObject);
         }
@@ -155,7 +161,13 @@ public class Hero : MonoBehaviour {
         Destroy(GameObject.Find("Spawn").gameObject);
     }
 
-    void OnAudioPlay() {
-
+    void Boom() {
+        boomRestNum--;
+        boomText.text = "X " + boomRestNum;
+        GameObject[] gos = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (GameObject go in gos) {
+            //Debug.Log(go.name);
+            go.GetComponent<Enemy>().isDead = true;
+        }
     }
 }

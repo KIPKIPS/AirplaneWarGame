@@ -1,17 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public enum GameState {
-    Running, Pause
+    Running, Pause,End
 }
 public class GameManager : MonoBehaviour {
     public int score;
     public static GameManager _instance;
     public Text scoreText;
-
     public GameState gameState;
-    
+
+    public int highestScore;
     // Start is called before the first frame update
     void Awake() {
         _instance = this;
@@ -20,22 +21,24 @@ public class GameManager : MonoBehaviour {
     void Start() {
         score = 0;
         scoreText = GameObject.Find("Score").GetComponent<Text>();
-        
     }
 
     // Update is called once per frame
     void Update() {
         scoreText.text = "Your Score : " + score;
+        if (gameState==GameState.End) {
+            GameOver._instance.Show(score);//显示结束界面
+            Camera.main.GetComponent<AudioSource>().Stop();//BGM停止
+
+        }
     }
 
     public void ChangeState() {
         if (_instance.gameState == GameState.Running) {
-            Debug.Log("0");
             Pause();
             //_instance.gameState = GameState.Pause;
         }
         else if (_instance.gameState == GameState.Pause) {
-            Debug.Log("1");
             Continue();
         }
     }
@@ -48,5 +51,13 @@ public class GameManager : MonoBehaviour {
     public void Continue() {
         Time.timeScale = 1;
         _instance.gameState = GameState.Running;
+    }
+
+    public void Restart() {
+        Time.timeScale = 1;
+        SceneManager.LoadScene(0);
+    }
+    public void Exit() {
+        Application.Quit();
     }
 }

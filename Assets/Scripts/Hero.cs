@@ -50,6 +50,8 @@ public class Hero : MonoBehaviour {
         gunRight = GameObject.Find("Gun_right").GetComponent<Gun>();
         audioList = GetComponents<AudioSource>();
         boomText = GameObject.Find("RestNum").GetComponent<Text>();
+        Dup = 0;
+        Dright = 0;
     }
     // Start is called before the first frame update
     void Start() {
@@ -82,10 +84,12 @@ public class Hero : MonoBehaviour {
             sr.sprite = spritesExplode[frameIndexExplode];
             //最后一帧完成则Explode
             if (frameIndexExplode == spritesExplode.Length - 1) {
+                GameManager._instance.gameState = GameState.End;
                 //Time.timeScale = 0;
                 DestroyAll();
-                Destroy(this.gameObject);
                 Time.timeScale = 0;
+                Destroy(this.gameObject);
+                
             }
         }
         targetDup = (Input.GetKey(keyUp) ? 1.0f : 0) - (Input.GetKey(keyDown) ? 1.0f : 0);

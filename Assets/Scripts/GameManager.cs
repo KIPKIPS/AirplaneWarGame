@@ -10,8 +10,8 @@ public class GameManager : MonoBehaviour {
     public static GameManager _instance;
     public Text text;
 
-    
     public GameState gameState;
+
     // Start is called before the first frame update
     void Awake() {
         _instance = this;

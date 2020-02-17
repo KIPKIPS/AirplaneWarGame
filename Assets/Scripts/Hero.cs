@@ -39,11 +39,12 @@ public class Hero : MonoBehaviour {
     public Gun gunRight;
 
     public int hp;
-
+    public AudioSource[] audioList;
     void Awake() {
         gunTop = GameObject.Find("Gun_top").GetComponent<Gun>();
         gunLeft = GameObject.Find("Gun_left").GetComponent<Gun>();
         gunRight = GameObject.Find("Gun_right").GetComponent<Gun>();
+        audioList = GetComponents<AudioSource>();
     }
     // Start is called before the first frame update
     void Start() {
@@ -120,11 +121,14 @@ public class Hero : MonoBehaviour {
     void OnTriggerEnter(Collider other) {
         //获取补给
         if (other.tag == "Award") {
-            //Debug.Log("award");
+            //double weapon
             if (other.transform.GetComponent<Award>().type == 0) {
                 superWeaponTime = restSuperWeaponTime;
+                audioList[0].Play();
             }
+            //boom
             if (other.transform.GetComponent<Award>().type == 1) {
+                audioList[1].Play();
                 //other.gameObject.SendMessage("GetAward1");
                 GameObject[] gos = GameObject.FindGameObjectsWithTag("Enemy");
                 foreach (GameObject go in gos) {
@@ -150,5 +154,9 @@ public class Hero : MonoBehaviour {
             Destroy(VARIABLE.gameObject);
         }
         Destroy(GameObject.Find("Spawn").gameObject);
+    }
+
+    void OnAudioPlay() {
+
     }
 }

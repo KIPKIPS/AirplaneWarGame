@@ -48,6 +48,7 @@ public class Spawn : MonoBehaviour {
         Instantiate(award_0, new Vector3(x, transform.position.y, transform.position.z), Quaternion.identity);
     }
     public void CreateAward1() {
+        
         float x = Random.Range(-1.5f, 1.5f);
         Instantiate(award_1, new Vector3(x, transform.position.y, transform.position.z), Quaternion.identity);
     }

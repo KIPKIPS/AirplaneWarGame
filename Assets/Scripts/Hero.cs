@@ -121,14 +121,13 @@ public class Hero : MonoBehaviour {
     void OnTriggerEnter(Collider other) {
         //获取补给
         if (other.tag == "Award") {
+            audioList[0].Play();
             //double weapon
             if (other.transform.GetComponent<Award>().type == 0) {
                 superWeaponTime = restSuperWeaponTime;
-                audioList[0].Play();
             }
             //boom
             if (other.transform.GetComponent<Award>().type == 1) {
-                audioList[1].Play();
                 //other.gameObject.SendMessage("GetAward1");
                 GameObject[] gos = GameObject.FindGameObjectsWithTag("Enemy");
                 foreach (GameObject go in gos) {

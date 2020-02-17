@@ -27,12 +27,15 @@ public class GameOver : MonoBehaviour {
 
     public void Show(float currentScore) {
         this.gameObject.SetActive(true);
-        float highestScore = PlayerPrefs.GetFloat("highestScore", 0);
+        float highestScore = PlayerPrefs.GetFloat("highestScore", 0);//将最高分默认值设置为0
+        //破纪录
         if (currentScore>highestScore) {
-            PlayerPrefs.SetFloat("highestScore", currentScore);
+            PlayerPrefs.SetFloat("highestScore", currentScore);//修改最高分
         }
+        //分数显示
         highestScoreText.text = highestScore + "";
         currentScoreText.text = currentScore + "";
-        
+
+        Camera.main.GetComponent<AudioSource>().Stop();//BGM停止
     }
 }

@@ -28,8 +28,6 @@ public class GameManager : MonoBehaviour {
         scoreText.text = "Your Score : " + score;
         if (gameState==GameState.End) {
             GameOver._instance.Show(score);//显示结束界面
-            Camera.main.GetComponent<AudioSource>().Stop();//BGM停止
-
         }
     }
 

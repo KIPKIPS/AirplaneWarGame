@@ -58,7 +58,6 @@ public class Enemy : MonoBehaviour {
         }
 
     }
-
     public void BeHit() {
         hp--;
         isDead = hp <= 0;
@@ -66,8 +65,7 @@ public class Enemy : MonoBehaviour {
 
     void OnTriggerEnter(Collider other) {
         if (other.tag=="PlayerSenior") {
-            Debug.Log("explode");
-            isDead = true;
+            this.isDead = true;
         }
     }
 }

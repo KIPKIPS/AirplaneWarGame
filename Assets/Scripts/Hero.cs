@@ -32,7 +32,7 @@ public class Hero : MonoBehaviour {
     public float superWeaponTime = 15;
     private float restSuperWeaponTime;
 
-    public int weaponCount=1;//武器数量
+    public int weaponCount = 1;//武器数量
 
     public Gun gunTop;
     public Gun gunLeft;
@@ -54,7 +54,7 @@ public class Hero : MonoBehaviour {
         //初始状态下武器为1
         restSuperWeaponTime = superWeaponTime;
         superWeaponTime = 0;
-        
+
     }
 
     // Update is called once per frame
@@ -71,7 +71,7 @@ public class Hero : MonoBehaviour {
             int frameIndexExplode = (int)(timerExplode / (1.0f / fps)) % 4;
             sr.sprite = spritesExplode[frameIndexExplode];
             //最后一帧完成则Explode
-            if (frameIndexExplode==spritesExplode.Length-1) {
+            if (frameIndexExplode == spritesExplode.Length - 1) {
                 //Time.timeScale = 0;
                 DestroyAll();
                 Destroy(this.gameObject);
@@ -91,8 +91,8 @@ public class Hero : MonoBehaviour {
 
         transform.position = new Vector3(x, y, transform.position.z);
         superWeaponTime -= Time.deltaTime;
-        if (superWeaponTime>0) {
-            if (weaponCount==1) {
+        if (superWeaponTime > 0) {
+            if (weaponCount == 1) {
                 ToSuperWeapon();
             }
         }
@@ -121,13 +121,16 @@ public class Hero : MonoBehaviour {
         //获取补给
         if (other.tag == "Award") {
             //Debug.Log("award");
-            if (other.transform.GetComponent<Award>().type == 0) 
+            if (other.transform.GetComponent<Award>().type == 0) {
                 superWeaponTime = restSuperWeaponTime;
-            else {
+            }
+            if (other.transform.GetComponent<Award>().type == 1) {
                 //other.gameObject.SendMessage("GetAward1");
                 GameObject[] gos = GameObject.FindGameObjectsWithTag("Enemy");
-                foreach (var go in gos) 
+                foreach (GameObject go in gos) {
+                    //Debug.Log(go.name);
                     go.GetComponent<Enemy>().isDead = true;
+                }
             }
             Destroy(other.gameObject);
         }
@@ -146,5 +149,6 @@ public class Hero : MonoBehaviour {
         foreach (var VARIABLE in bullets) {
             Destroy(VARIABLE.gameObject);
         }
+        Destroy(GameObject.Find("Spawn").gameObject);
     }
 }
